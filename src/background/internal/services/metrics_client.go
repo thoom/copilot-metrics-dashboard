@@ -180,11 +180,12 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 			for _, editor := range metric.CopilotIdeCodeCompletions.Editors {
 				for _, model := range editor.Models {
 					for _, language := range model.Languages {
-						// Add breakdown by language/editor
+						// Add breakdown by language/editor/model
 						usageBreakdown := models.UsageBreakdown{
 							Day:              metric.Date,
 							Language:         language.Name,
 							Editor:           editor.Name,
+							Model:            model.Name,
 							SuggestionsCount: language.TotalCodeSuggestions,
 							AcceptancesCount: language.TotalCodeAcceptances,
 							LinesSuggested:   language.TotalCodeLinesSuggested,

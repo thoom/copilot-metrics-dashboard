@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { applyTimeFrameLabel } from "../services/helper";
-import { sampleData } from "../services/sample-data";
+import { applyTimeFrameLabel } from "@/utils/helpers";
+import { sampleData } from "@/services/sample-data";
 import { computeAcceptanceAverage } from "./common";
 
 describe("computeAcceptanceAverage", () => {
@@ -26,11 +26,11 @@ describe("computeAcceptanceAverage", () => {
   });
 
   it("handles data with zero suggested lines", () => {
+    const transformedData = applyTimeFrameLabel(sampleData);
     const modifiedData = [
       {
-        ...sampleData[0],
-        total_lines_suggested: 0, // Force zero suggested lines
-        breakdown: sampleData[0].breakdown.map((breakdown) => ({
+        ...transformedData[0],
+        breakdown: transformedData[0].breakdown.map((breakdown: any) => ({
           ...breakdown,
           lines_suggested: 0,
         })),
@@ -39,11 +39,12 @@ describe("computeAcceptanceAverage", () => {
     const expectedResults = [
       {
         acceptanceRate: 0, // No lines suggested, so acceptance rate should be 0
-        timeFrameDisplay: "Mar 18",
+        acceptanceLinesRate: 0, // No lines suggested, so acceptance rate should be 0
+        timeFrameDisplay: "Jun 24",
       },
     ];
 
-    const results = computeAcceptanceAverage(applyTimeFrameLabel(modifiedData));
+    const results = computeAcceptanceAverage(modifiedData);
     expect(results).toEqual(expectedResults);
   });
 });

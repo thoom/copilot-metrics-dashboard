@@ -24,7 +24,7 @@ export const sampleData: CopilotMetrics[] =
           "total_engaged_users": 13,
           "models": [
             {
-              "name": "default",
+              "name": "gpt-4-turbo",
               "is_custom_model": false,
               "custom_model_training_date": null,
               "total_engaged_users": 13,

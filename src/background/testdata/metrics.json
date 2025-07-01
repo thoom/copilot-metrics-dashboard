@@ -7,7 +7,7 @@
                   "name": "JetBrains",
                   "models": [
                       {
-                          "name": "default",
+                          "name": "claude-3-sonnet-20240229",
                           "total_chats": 156,
                           "is_custom_model": false,
                           "total_engaged_users": 21,
@@ -21,7 +21,7 @@
                   "name": "vscode",
                   "models": [
                       {
-                          "name": "default",
+                          "name": "gpt-4-turbo-2024-04-09",
                           "total_chats": 243,
                           "is_custom_model": false,
                           "total_engaged_users": 31,
@@ -38,7 +38,7 @@
       "copilot_dotcom_chat": {
           "models": [
               {
-                  "name": "default",
+                  "name": "gpt-4o-2024-05-13",
                   "total_chats": 23,
                   "is_custom_model": false,
                   "total_engaged_users": 12
@@ -53,7 +53,7 @@
                   "name": "digicert/snowbird",
                   "models": [
                       {
-                          "name": "default",
+                          "name": "claude-3-5-sonnet-20241022",
                           "is_custom_model": false,
                           "total_engaged_users": 5,
                           "total_pr_summaries_created": 7

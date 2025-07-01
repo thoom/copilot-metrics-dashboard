@@ -141,25 +141,25 @@ type DotComPullRequestRepositoryModel struct {
 
 // CopilotUsage represents GitHub Copilot usage statistics
 type CopilotUsage struct {
-	ID                    string           `json:"id,omitempty"`
-	Day                   string           `json:"day"`
-	Enterprise            string           `json:"enterprise,omitempty"`
-	Organization          string           `json:"organization,omitempty"`
-	Team                  string           `json:"team,omitempty"`
-	LastUpdate            time.Time        `json:"last_update"`
-	TotalSuggestionsCount int              `json:"total_suggestions_count"`
-	TotalAcceptancesCount int              `json:"total_acceptances_count"`
-	TotalLinesSuggested   int              `json:"total_lines_suggested"`
-	TotalLinesAccepted    int              `json:"total_lines_accepted"`
-	TotalActiveUsers      int              `json:"total_active_users"`
-	TotalChatAcceptances  int              `json:"total_chat_acceptances"`
-	TotalChatTurns        int              `json:"total_chat_turns"`
-	TotalActiveChatUsers  int              `json:"total_active_chat_users"`
-	TotalChatCopyEvents   int              `json:"total_chat_copy_events"`
-	TotalChatInsertionEvents int           `json:"total_chat_insertion_events"`
-	TotalPrSummariesCreated int            `json:"total_pr_summaries_created"`
-	TotalActivePrUsers    int              `json:"total_active_pr_users"`
-	Breakdown             []UsageBreakdown `json:"breakdown"`
+	ID                       string           `json:"id,omitempty"`
+	Day                      string           `json:"day"`
+	Enterprise               string           `json:"enterprise,omitempty"`
+	Organization             string           `json:"organization,omitempty"`
+	Team                     string           `json:"team,omitempty"`
+	LastUpdate               time.Time        `json:"last_update"`
+	TotalSuggestionsCount    int              `json:"total_suggestions_count"`
+	TotalAcceptancesCount    int              `json:"total_acceptances_count"`
+	TotalLinesSuggested      int              `json:"total_lines_suggested"`
+	TotalLinesAccepted       int              `json:"total_lines_accepted"`
+	TotalActiveUsers         int              `json:"total_active_users"`
+	TotalChatAcceptances     int              `json:"total_chat_acceptances"`
+	TotalChatTurns           int              `json:"total_chat_turns"`
+	TotalActiveChatUsers     int              `json:"total_active_chat_users"`
+	TotalChatCopyEvents      int              `json:"total_chat_copy_events"`
+	TotalChatInsertionEvents int              `json:"total_chat_insertion_events"`
+	TotalPrSummariesCreated  int              `json:"total_pr_summaries_created"`
+	TotalActivePrUsers       int              `json:"total_active_pr_users"`
+	Breakdown                []UsageBreakdown `json:"breakdown"`
 }
 
 // GetID generates an ID for the usage data
@@ -172,11 +172,12 @@ func (c *CopilotUsage) GetID() string {
 	return fmt.Sprintf("%s-XXX", c.Day)
 }
 
-// UsageBreakdown represents usage statistics broken down by language and editor
+// UsageBreakdown represents usage statistics broken down by language, editor, and model
 type UsageBreakdown struct {
 	Day              string `json:"day"`
 	Language         string `json:"language"`
 	Editor           string `json:"editor"`
+	Model            string `json:"model"`
 	SuggestionsCount int    `json:"suggestions_count"`
 	AcceptancesCount int    `json:"acceptances_count"`
 	LinesSuggested   int    `json:"lines_suggested"`
