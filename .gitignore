@@ -1,2 +1,18 @@
 .azure/
 .idea/
+
+# Environment files with sensitive data
+.env
+src/background/.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database files
+*.db
+*.sqlite

@@ -8,6 +8,8 @@ import { Stats } from "./charts/stats";
 import { TotalChatsAndAcceptances } from "./charts/total-chat-suggestions-and-acceptances";
 import { TotalCodeLineSuggestionsAndAcceptances } from "./charts/total-code-line-suggestions-and-acceptances";
 import { TotalSuggestionsAndAcceptances } from "./charts/total-suggestions-and-acceptances";
+import { EnhancedChatMetrics } from "./charts/enhanced-chat-metrics";
+import { PrSummaryMetrics } from "./charts/pr-summary-metrics";
 import { DataProvider } from "./dashboard-state";
 import { TimeFrameToggle } from "./filter/time-frame-toggle";
 import { Header } from "./header";
@@ -50,6 +52,8 @@ export default async function Dashboard(props: IProps) {
             <ActiveUsers />
             <AcceptanceRate />
             <ChatAcceptanceRate />
+            <EnhancedChatMetrics />
+            <PrSummaryMetrics />
             <TotalCodeLineSuggestionsAndAcceptances />
             <TotalSuggestionsAndAcceptances />
             <TotalChatsAndAcceptances />

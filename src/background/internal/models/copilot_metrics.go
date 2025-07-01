@@ -155,6 +155,10 @@ type CopilotUsage struct {
 	TotalChatAcceptances  int              `json:"total_chat_acceptances"`
 	TotalChatTurns        int              `json:"total_chat_turns"`
 	TotalActiveChatUsers  int              `json:"total_active_chat_users"`
+	TotalChatCopyEvents   int              `json:"total_chat_copy_events"`
+	TotalChatInsertionEvents int           `json:"total_chat_insertion_events"`
+	TotalPrSummariesCreated int            `json:"total_pr_summaries_created"`
+	TotalActivePrUsers    int              `json:"total_active_pr_users"`
 	Breakdown             []UsageBreakdown `json:"breakdown"`
 }
 

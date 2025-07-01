@@ -18,6 +18,8 @@ export const groupByTimeFrame = (
       total_chats: 0,
       total_chat_insertion_events: 0,
       total_chat_copy_events: 0,
+      total_pr_summaries_created: 0,
+      total_active_pr_users: 0,
       day: "", // Decide how to handle this
       breakdown: [], // Decide how to handle this
       time_frame_month: "",
@@ -39,6 +41,8 @@ export const groupByTimeFrame = (
       aggregatedData.total_chats += item.total_chats;
       aggregatedData.total_chat_insertion_events += item.total_chat_insertion_events;
       aggregatedData.total_chat_copy_events += item.total_chat_copy_events;
+      aggregatedData.total_pr_summaries_created += item.total_pr_summaries_created;
+      aggregatedData.total_active_pr_users += item.total_active_pr_users;
 
       item.breakdown.forEach((breakdownItem) => {
         const existingIndex = aggregatedData.breakdown.findIndex(

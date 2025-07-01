@@ -160,6 +160,10 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 		totalChatAcceptances := 0
 		totalChatTurns := 0
 		totalActiveChatUsers := 0
+		totalChatCopyEvents := 0
+		totalChatInsertionEvents := 0
+		totalPrSummariesCreated := 0
+		totalActivePrUsers := 0
 
 		// Set total engaged users from the metrics
 		if metric.TotalEngagedUsers > 0 {
@@ -212,9 +216,11 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 						totalChatTurns += model.TotalChats
 					}
 					if model.TotalChatCopyEvents > 0 {
+						totalChatCopyEvents += model.TotalChatCopyEvents
 						totalChatAcceptances += model.TotalChatCopyEvents
 					}
 					if model.TotalChatInsertionEvents > 0 {
+						totalChatInsertionEvents += model.TotalChatInsertionEvents
 						totalChatAcceptances += model.TotalChatInsertionEvents
 					}
 				}
@@ -232,25 +238,42 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 			}
 		}
 
+		// Add PR summary data from GitHub.com
+		if metric.DotComPullRequests != nil && metric.DotComPullRequests.TotalEngagedUsers > 0 {
+			totalActivePrUsers = metric.DotComPullRequests.TotalEngagedUsers
+
+			for _, repository := range metric.DotComPullRequests.Repositories {
+				for _, model := range repository.Models {
+					if model.TotalPrSummariesCreated > 0 {
+						totalPrSummariesCreated += model.TotalPrSummariesCreated
+					}
+				}
+			}
+		}
+
 		// Get or create usage record for this date
 		usage, exists := usagesByDay[metric.Date]
 		if !exists {
 			usage = &models.CopilotUsage{
-				ID:                    "", // Will be set below
-				Day:                   metric.Date,
-				Organization:          metric.Organization,
-				Enterprise:            metric.Enterprise,
-				Team:                  metric.Team,
-				LastUpdate:            time.Now().UTC(),
-				TotalSuggestionsCount: totalSuggestionsCount,
-				TotalAcceptancesCount: totalAcceptancesCount,
-				TotalLinesSuggested:   totalLinesSuggested,
-				TotalLinesAccepted:    totalLinesAccepted,
-				TotalActiveUsers:      totalActiveUsers,
-				TotalChatAcceptances:  totalChatAcceptances,
-				TotalChatTurns:        totalChatTurns,
-				TotalActiveChatUsers:  totalActiveChatUsers,
-				Breakdown:             []models.UsageBreakdown{},
+				ID:                       "", // Will be set below
+				Day:                      metric.Date,
+				Organization:             metric.Organization,
+				Enterprise:               metric.Enterprise,
+				Team:                     metric.Team,
+				LastUpdate:               time.Now().UTC(),
+				TotalSuggestionsCount:    totalSuggestionsCount,
+				TotalAcceptancesCount:    totalAcceptancesCount,
+				TotalLinesSuggested:      totalLinesSuggested,
+				TotalLinesAccepted:       totalLinesAccepted,
+				TotalActiveUsers:         totalActiveUsers,
+				TotalChatAcceptances:     totalChatAcceptances,
+				TotalChatTurns:           totalChatTurns,
+				TotalActiveChatUsers:     totalActiveChatUsers,
+				TotalChatCopyEvents:      totalChatCopyEvents,
+				TotalChatInsertionEvents: totalChatInsertionEvents,
+				TotalPrSummariesCreated:  totalPrSummariesCreated,
+				TotalActivePrUsers:       totalActivePrUsers,
+				Breakdown:                []models.UsageBreakdown{},
 			}
 			usagesByDay[metric.Date] = usage
 		} else {
@@ -261,6 +284,9 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 			usage.TotalLinesAccepted += totalLinesAccepted
 			usage.TotalChatAcceptances += totalChatAcceptances
 			usage.TotalChatTurns += totalChatTurns
+			usage.TotalChatCopyEvents += totalChatCopyEvents
+			usage.TotalChatInsertionEvents += totalChatInsertionEvents
+			usage.TotalPrSummariesCreated += totalPrSummariesCreated
 
 			// Take the max value for users to avoid double counting
 			if totalActiveUsers > usage.TotalActiveUsers {
@@ -268,6 +294,9 @@ func (c *CopilotMetricsClient) GetCopilotUsageFromMetrics(metrics []models.Metri
 			}
 			if totalActiveChatUsers > usage.TotalActiveChatUsers {
 				usage.TotalActiveChatUsers = totalActiveChatUsers
+			}
+			if totalActivePrUsers > usage.TotalActivePrUsers {
+				usage.TotalActivePrUsers = totalActivePrUsers
 			}
 		}
 

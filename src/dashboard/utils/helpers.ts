@@ -54,6 +54,8 @@ export const applyTimeFrameLabel = (
       total_chats:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chats || 0), 0)), 0),
       total_chat_insertion_events:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chat_insertion_events || 0), 0)), 0),
       total_chat_copy_events:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chat_copy_events || 0), 0)), 0),
+      total_pr_summaries_created: (item.copilot_dotcom_pull_requests.repositories || []).reduce((acc: number, repo) => acc + repo.models.reduce((modelAcc: number, model) => modelAcc + (model.total_pr_summaries_created || 0), 0), 0),
+      total_active_pr_users: item.copilot_dotcom_pull_requests.total_engaged_users,
       day: item.date,
       breakdown: breakdowns,
       time_frame_week: weekIdentifier,

@@ -299,3 +299,47 @@ export function totalChatsAndAcceptances(
 
   return rates;
 }
+
+export interface PrSummaryData {
+  totalPrSummariesCreated: number;
+  totalActivePrUsers: number;
+  timeFrameDisplay: string;
+}
+
+export function computePrSummaryMetrics(
+  filteredData: CopilotUsageOutput[]
+): PrSummaryData[] {
+  const metrics = filteredData.map((item) => {
+    return {
+      totalPrSummariesCreated: item.total_pr_summaries_created || 0,
+      totalActivePrUsers: item.total_active_pr_users || 0,
+      timeFrameDisplay: item.time_frame_display
+    };
+  });
+
+  return metrics;
+}
+
+export interface ChatDetailedMetricsData {
+  totalChats: number;
+  totalChatInsertionEvents: number;
+  totalChatCopyEvents: number;
+  totalChatAcceptances: number;
+  timeFrameDisplay: string;
+}
+
+export function computeDetailedChatMetrics(
+  filteredData: CopilotUsageOutput[]
+): ChatDetailedMetricsData[] {
+  const metrics = filteredData.map((item) => {
+    return {
+      totalChats: item.total_chats,
+      totalChatInsertionEvents: item.total_chat_insertion_events,
+      totalChatCopyEvents: item.total_chat_copy_events,
+      totalChatAcceptances: item.total_chat_insertion_events + item.total_chat_copy_events,
+      timeFrameDisplay: item.time_frame_display
+    };
+  });
+
+  return metrics;
+}

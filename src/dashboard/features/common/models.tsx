@@ -115,6 +115,8 @@ export interface SeatBreakdown {
     total_chats: number;
     total_chat_insertion_events: number;
     total_chat_copy_events: number;
+    total_pr_summaries_created: number;
+    total_active_pr_users: number;
     day: string;
     breakdown: Breakdown[];
   }
